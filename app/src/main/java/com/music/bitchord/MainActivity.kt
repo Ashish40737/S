@@ -461,6 +461,7 @@ private fun BitChordApp(
     val listenBrainzToken by AppSettings.listenBrainzToken.collectAsStateWithLifecycle()
     // Incremented each time the search tab is re-tapped while already selected,
     // which SearchScreen uses as a signal to focus the input field.
+    val query by viewModel.query.collectAsStateWithLifecycle()
     var searchFocusTrigger by remember { mutableIntStateOf(0) }
     // Invalidates an in-flight radio lookup when a later play request wins.
     var playRequestGeneration by remember { mutableIntStateOf(0) }
@@ -493,13 +494,6 @@ private fun BitChordApp(
      */
     val updateNotice = updateAvailable
 
-    LaunchedEffect(updateNotice) {
-        if (updateNotice != null && !updateDialogShown) {
-            updateDialogShown = true
-            showUpdateDialog = true
-        }
-    }
-    val query by viewModel.query.collectAsStateWithLifecycle()
     val results by viewModel.results.collectAsStateWithLifecycle()
     val exploreState by viewModel.explore.collectAsStateWithLifecycle()
     val selectedMoodGenre by viewModel.selectedMoodGenre.collectAsStateWithLifecycle()
@@ -2935,7 +2929,7 @@ private fun BitChordApp(
         }
 
         // ---- Update available (once per launch) ----
-        if (showUpdateDialog) {
+        if (false) {
             updateNotice?.let { update ->
                 UpdateAvailableDialog(
                     version = update.version,

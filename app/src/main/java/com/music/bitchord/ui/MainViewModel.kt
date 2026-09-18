@@ -1046,8 +1046,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             // A leftover APK only means "Install Now" for the session that
             // downloaded it — see AppUpdateChecker.clearCache.
-            AppUpdateChecker.clearCache(getApplication())
-            AppUpdateChecker.check()
         }
     }
 
