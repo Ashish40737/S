@@ -92,6 +92,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.material3.Button
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -164,8 +165,7 @@ fun SettingsScreen(
     onAppLanguage: () -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
-) {
-    val context = LocalContext.current
+) {val context = LocalContext.current
 
     val wifiQuality by AppSettings.audioQualityWifi.collectAsStateWithLifecycle()
     val cellularQuality by AppSettings.audioQualityCellular.collectAsStateWithLifecycle()
@@ -1089,6 +1089,8 @@ fun SettingsScreen(
                 .padding(top = 24.dp, bottom = 8.dp),
         )
     }
+
+            
 
     picking?.let { target ->
         ModalBottomSheet(

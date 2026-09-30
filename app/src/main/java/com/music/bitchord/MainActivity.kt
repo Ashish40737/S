@@ -417,6 +417,8 @@ private fun BitChordApp(
      * restored over an empty one would be a manager with nothing to manage.
      */
     var showDownloadManager by remember { mutableStateOf(false) }
+    var showSupportAS by remember { mutableStateOf(false) }
+
     // Discord Rich Presence: its own page under Account & integrations, its own
     // full-screen sign-in, and one slot for whichever of its alerts is open.
     // The alerts live out here rather than on the page because their scrim has
@@ -2322,6 +2324,13 @@ private fun BitChordApp(
                             // [TopBarDownloadButton], which decides that for
                             // itself rather than being told.
                             TopBarDownloadButton(onClick = { showDownloadManager = true })
+        IconButton(onClick = { showSupportAS = true }) {
+            Icon(
+                BitChordIcons.Heart,
+                contentDescription = "Support AS"
+            )
+        }
+
                             TopBarAccountButton(
                                 account = account,
                                 onClick = {
@@ -2696,6 +2705,62 @@ private fun BitChordApp(
         }
 
         // ---- Add to playlist / new playlist ----
+    if (showSupportAS) {
+        ModalBottomSheet(
+            onDismissRequest = { showSupportAS = false },
+            containerColor = MaterialTheme.colorScheme.background,
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Icon(
+                    imageVector = BitChordIcons.Heart,
+                    contentDescription = "Support AS",
+                    modifier = Modifier.size(40.dp),
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    text = "Support AS",
+                    style = MaterialTheme.typography.headlineSmall,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "If you enjoy AS, you can support the project voluntarily.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                        text = "UPI: 8237366533-2@fam",
+                            style = MaterialTheme.typography.bodyLarge,
+                                textAlign = TextAlign.Center,
+                )
+                                    val upiUri = Uri.parse(
+                                                    "upi://pay?pa=8237366533-2@fam&pn=Support%20AS&cu=INR"
+                                    )
+                                            val intent = Intent(Intent.ACTION_VIEW, upiUri)
+                                                    context.startActivity(intent)
+                        },
+                            colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.primary,
+                                                contentColor = MaterialTheme.colorScheme.onPrimary
+                            )
+                ) {
+                
+                }
+
+                Spacer (modifier Modifier.height(16.dp))
+                                    )
+                        }
+            
+            }
+        }
+    }
+
         // One sheet for both, because they are one decision: the list of
         // playlists with a way to make another. `creatingPlaylist` opens it
         // straight onto the form, which is what the Library tile means.
@@ -3096,38 +3161,36 @@ private fun BitChordApp(
         }
 
         if (showSpotifyCanvasAuth) {
-            BackHandler { showSpotifyCanvasAuth = false }
-            SpotifyCanvasAuthScreen(
-                onNavigateUp = { showSpotifyCanvasAuth = false }
-            )
-        }
+                BackHandler { showSpotifyCanvasAuth = false }
 
-        discordDialog?.let { which ->
-            DiscordDialogHost(
-                which = which,
-                hazeState = hazeState,
-                onDismiss = { discordDialog = null },
-            )
-        }
-
-        editingSource?.let { config ->
-            SourceEditorAlert(
-                hazeState = hazeState,
-                config = config,
-                onDismiss = { editingSource = null },
-                onSaved = { editingSource = null },
-                onDelete = {
-                    SourceRegistry.remove(config.id)
-                    editingSource = null
-                },
-                scope = scope,
-            )
-        }
-
-    }
+                    SpotifyCanvasAuthScreen(
+if (showSpotifyCanvasAuth) {
+    BackHandler { showSpotifyCanvasAuth = false }
+    SpotifyCanvasAuthScreen(
+        onNavigateUp = { showSpotifyCanvasAuth = false }
+    )
 }
 
-private fun tween(durationMillis: Int) =
+discordDialog?.let { which ->
+    DiscordDialogHost(
+        which = which,
+        hazeState = hazeState,
+        onDismiss = { discordDialog = null }
+    )
+}
+
+editingSource?.let { config ->
+    SourceEditorAlert(
+        hazeState = hazeState,
+        config = config,
+        onDismiss = { editingSource = null },
+        onSaved = { editingSource = null },
+        onDelete = {
+            SourceRegistry.remove(config.id)
+            editingSource = null
+        }
+    )
+}
     androidx.compose.animation.core.tween<Float>(durationMillis)
 
 @Composable
@@ -3252,7 +3315,7 @@ private fun DockedPlayer(
  * of the bar, or tapping the last line of a lyric, is asking for. A second back
  * from the end plays the outro instead.
  */
-private const val SEEK_END_GUARD_MS = 1_000L
+private const val SEEK_END_GUARD_MS = 1000L
 
 /**
  * How far a detail page scrolls before its title moves up into the bar.
