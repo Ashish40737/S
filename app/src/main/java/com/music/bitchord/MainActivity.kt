@@ -3319,23 +3319,23 @@ private const val SEEK_END_GUARD_MS = 1000L
 
 /**
  * How far a detail page scrolls before its title moves up into the bar.
- *
- * Roughly the height of the sleeve and the credit stacked above the Play pair,
- * so the two titles hand over as the header one leaves rather than sitting on
- * screen together. The bar cross-fades over 220ms, which absorbs the difference
- * between that estimate and a particular page's real header.
- */
-private val DETAIL_TITLE_DROP = 320.dp
+  *
+   * Roughly the height of the sleeve and the credit stacked above the Play pair,
+    * so the two titles hand over as the header one leaves rather than sitting on
+     * screen together. The bar cross-fades over 220ms, which absorbs the difference
+      * between that estimate and a particular page's real header.
+       */
+       private val DETAIL_TITLE_DROP = 320.dp
 
-private const val TAB_HOME = 0
-private const val TAB_EXPLORE = 1
-private const val TAB_LIBRARY = 2
-private const val TAB_SEARCH = 3
+       private const val TAB_HOME = 0
+       private const val TAB_EXPLORE = 1
+       private const val TAB_LIBRARY = 2
+       private const val TAB_SEARCH = 3
 
-/**
- * What a tab's key is prefixed with in the content switcher above.
- *
- * The index is read back off it there rather than off `selectedTab`, so the
- * prefix has to be the one thing both the writing and the reading agree on.
- */
-private const val TAB_KEY = "tab:"
+       /**
+        * What tab's key is prefixed with in the content switcher above.
+         *
+          * The index is read back off it there rather than off selectedTab, so the
+           * prefix has to be the one thing both the writing and the reading agree on.
+            */
+            private const val TAB_KEY = "tab:"
