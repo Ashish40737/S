@@ -2705,57 +2705,64 @@ private fun BitChordApp(
         }
 
         // ---- Add to playlist / new playlist ----
-    if (showSupportAS) {
-        ModalBottomSheet(
-            onDismissRequest = { showSupportAS = false },
-            containerColor = MaterialTheme.colorScheme.background,
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Icon(
-                    imageVector = BitChordIcons.Heart,
-                    contentDescription = "Support AS",
-                    modifier = Modifier.size(40.dp),
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = "Support AS",
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+                text = "Support AS",
                     style = MaterialTheme.typography.headlineSmall,
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "If you enjoy AS, you can support the project voluntarily.",
+                        color = MaterialTheme.colorScheme.onSurface,
+                            textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+                text = "If you enjoy AS, you can support its development.",
                     style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center,
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+        )
 
-                Text(
-                        text = "UPI: 8237366533-2@fam",
-                            style = MaterialTheme.typography.bodyLarge,
-                                textAlign = TextAlign.Center,
-                )
-                                    val upiUri = Uri.parse(
-                                                    "upi://pay?pa=8237366533-2@fam&pn=Support%20AS&cu=INR"
-                                    )
-                                            val intent = Intent(Intent.ACTION_VIEW, upiUri)
-                                                    context.startActivity(intent)
-                        },
-                            colors = ButtonDefaults.buttonColors(
-                                        containerColor = MaterialTheme.colorScheme.primary,
-                                                contentColor = MaterialTheme.colorScheme.onPrimary
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+                text = "UPI: 8237366533-2@fam",
+                    style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurface,
+                            textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Button(
+                onClick = {
+                            val upiUri = Uri.parse(
+                                            "upi://pay?pa=8237366533-2@fam&pn=Support%20AS&cu=INR"
                             )
-                ) {
-                
-                }
 
-                Spacer (modifier Modifier.height(16.dp))
-                                    )
-                        }
+                                    val intent = Intent(Intent.ACTION_VIEW, upiUri)
+
+                                            try {
+                                                            context.startActivity(intent)
+                                            } catch (e: Exception) {
+                                                            Toast.makeText(
+                                                                                context,
+                                                                                                "No UPI app found",
+                                                                                                                Toast.LENGTH_SHORT
+                                                            ).show()
+                                            }
+                },
+                    colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    ),
+                        modifier = Modifier.fillMaxWidth()
+        ) {
+                Text(text = "$ Support AS")
+        }
             
             }
         }
@@ -3216,7 +3223,7 @@ private fun SongSort.localizedLabel(): String = when (this) {
  * listing under its own cover and wants the same chrome every other release page
  * gets. See [Downloads.PLAYLIST_PREFIX] for why they share a namespace at all.
  */
-private fun String?.isDeviceFolder(): Boolean =
+private fun String?.isDeviceFolder(): Boolean {}
     this != null && startsWith("local:") && !startsWith(Downloads.PLAYLIST_PREFIX)
 
 /** `M:SS`/`H:MM:SS`, the same shape [String?.durationMillis] parses back. */
