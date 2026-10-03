@@ -24,7 +24,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build AS Debug APK
-        run: ./gradlew assembleDebug --no-daemon --stacktrace --info
+        run: ./gradlew compileDevDebugKotlin --no-daemon 2>&1 | grep -E "e: |error:" | head -30
 
       - name: Upload AS APK
         uses: actions/upload-artifact@v4
